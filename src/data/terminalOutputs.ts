@@ -8,6 +8,13 @@ export interface TerminalLine {
   delay?: number; // Delay before starting this line
 }
 
+export interface CustomTerminalContent {
+  id: string;
+  name: string;
+  lines: TerminalLine[];
+  createdAt: Date;
+}
+
 export const sampleTerminalOutput: TerminalLine[] = [
   { text: "Initializing development environment...", colorRole: "muted" },
   { text: "✓ Loading configuration", colorRole: "success", delay: 100 },

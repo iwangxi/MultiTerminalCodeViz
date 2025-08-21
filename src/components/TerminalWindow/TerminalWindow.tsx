@@ -7,6 +7,7 @@ import { useTypewriter } from '../../hooks/useTypewriter';
 import { terminalOutputs } from '../../data/terminalOutputs';
 import { useTheme } from '../../contexts/ThemeContext';
 import { generateMultiLineAsciiArt } from '../../utils/asciiArt';
+import { captureTerminal, copyScreenshotToClipboard, downloadScreenshot, generateScreenshotFilename } from '../../utils/screenshot';
 
 interface TerminalWindowProps {
   id: string;
@@ -40,6 +41,33 @@ export function TerminalWindow({
 
   // 使用国际化的默认标题
   const displayTitle = title || t('terminal.defaultTitle');
+
+  // 截图功能
+  const [isCapturing, setIsCapturing] = useState(false);
+
+  const handleScreenshot = async () => {
+    if (isCapturing) return;
+
+    setIsCapturing(true);
+    try {
+      const result = await captureTerminal(id);
+      if (result.success && result.blob) {
+        const copied = await copyScreenshotToClipboard(result.blob);
+        if (!copied) {
+          // 如果复制失败，则下载
+          downloadScreenshot(result.blob, generateScreenshotFilename(`terminal-${id}`));
+        }
+        // 这里可以添加成功提示
+        console.log('Screenshot captured successfully');
+      } else {
+        console.error('Screenshot failed:', result.error);
+      }
+    } catch (error) {
+      console.error('Screenshot error:', error);
+    } finally {
+      setIsCapturing(false);
+    }
+  };
 
   const [size, setSize] = useState({
     width: initialSize.width ?? DEFAULT_WIDTH,
@@ -127,13 +155,32 @@ export function TerminalWindow({
                  onMouseDown={() => onFocus && onFocus(id)}>
               {/* Traffic Lights */}
               <div className="flex ml-2 items-center space-x-2 no-drag">
-                <div 
+                <div
                   className="border-red-900 bg-red-500 shadow-inner rounded-full w-3 h-3 cursor-pointer hover:bg-red-600 transition-colors"
                   onClick={onClose}
                   title="Close terminal"
                 ></div>
                 <div className="border-yellow-900 bg-yellow-500 shadow-inner rounded-full w-3 h-3 cursor-pointer"></div>
                 <div className="border-green-900 bg-green-500 shadow-inner rounded-full w-3 h-3 cursor-pointer"></div>
+              </div>
+
+              {/* Screenshot Button */}
+              <div className="ml-auto mr-2 no-drag">
+                <button
+                  onClick={handleScreenshot}
+                  disabled={isCapturing}
+                  className="w-6 h-6 bg-gray-600 hover:bg-gray-500 disabled:bg-gray-700 rounded text-white text-xs flex items-center justify-center transition-colors"
+                  title={t('controls.screenshotTerminal')}
+                  aria-label={t('controls.screenshotTerminal')}
+                >
+                  {isCapturing ? (
+                    <div className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin"></div>
+                  ) : (
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </button>
               </div>
               {/* Title */}
               <div className="mx-auto pr-16">

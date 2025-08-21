@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { SimpleYouTubePlayer } from '../YouTubeAudioPlayer/SimpleYouTubePlayer';
 import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher';
+import { captureFullScreen, copyScreenshotToClipboard, downloadScreenshot, generateScreenshotFilename } from '../../utils/screenshot';
 
 interface ControlsPanelProps {
   terminalCount: number;
@@ -12,6 +13,8 @@ interface ControlsPanelProps {
   maxTerminals?: number;
   catCount?: number;
   onRemoveAllCats?: () => void;
+  onShowShortcuts?: () => void;
+  onShowCustomEditor?: () => void;
 }
 
 export function ControlsPanel({
@@ -21,11 +24,40 @@ export function ControlsPanel({
   minTerminals = 1,
   maxTerminals = 10000,
   catCount = 0,
-  onRemoveAllCats
+  onRemoveAllCats,
+  onShowShortcuts,
+  onShowCustomEditor
 }: ControlsPanelProps) {
   const [isVisible, setIsVisible] = useState(true);
   const { themeName, setTheme, getThemeNames } = useTheme();
   const { t } = useTranslation();
+
+  // 截图功能
+  const [isCapturingFullScreen, setIsCapturingFullScreen] = useState(false);
+
+  const handleFullScreenshot = async () => {
+    if (isCapturingFullScreen) return;
+
+    setIsCapturingFullScreen(true);
+    try {
+      const result = await captureFullScreen();
+      if (result.success && result.blob) {
+        const copied = await copyScreenshotToClipboard(result.blob);
+        if (!copied) {
+          // 如果复制失败，则下载
+          downloadScreenshot(result.blob, generateScreenshotFilename('all-terminals'));
+        }
+        // 这里可以添加成功提示
+        console.log('Full screenshot captured successfully');
+      } else {
+        console.error('Full screenshot failed:', result.error);
+      }
+    } catch (error) {
+      console.error('Full screenshot error:', error);
+    } finally {
+      setIsCapturingFullScreen(false);
+    }
+  };
 
   // YouTube videos for the audio player
   const youtubeVideos = [
@@ -175,6 +207,29 @@ export function ControlsPanel({
           {/* Language Switcher */}
           <LanguageSwitcher />
 
+          {/* Screenshot Button */}
+          <button
+            onClick={handleFullScreenshot}
+            disabled={isCapturingFullScreen}
+            className="w-full bg-cyan-600 hover:bg-cyan-700 disabled:bg-gray-600 text-white rounded py-2 px-3 text-sm font-medium transition-colors border-0 flex items-center justify-center space-x-2"
+            style={{ backgroundColor: isCapturingFullScreen ? '#4b5563' : '#0891b2' }}
+            aria-label={t('controls.screenshotAll')}
+          >
+            {isCapturingFullScreen ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>Capturing...</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                </svg>
+                <span>{t('controls.screenshotAll')}</span>
+              </>
+            )}
+          </button>
+
           {/* Cat Controls (only show if cats exist) */}
           {catCount > 0 && onRemoveAllCats && (
             <div className="space-y-2">
@@ -192,6 +247,36 @@ export function ControlsPanel({
                 {t('controls.removeCats')}
               </button>
             </div>
+          )}
+
+          {/* Custom Terminal Content Button */}
+          {onShowCustomEditor && (
+            <button
+              onClick={onShowCustomEditor}
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded py-2 px-3 text-sm font-medium transition-colors border-0 flex items-center justify-center space-x-2"
+              style={{ backgroundColor: '#059669' }}
+              aria-label={t('customTerminal.editCustomContent')}
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+              </svg>
+              <span>{t('customTerminal.editCustomContent')}</span>
+            </button>
+          )}
+
+          {/* Keyboard Shortcuts Help Button */}
+          {onShowShortcuts && (
+            <button
+              onClick={onShowShortcuts}
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded py-2 px-3 text-sm font-medium transition-colors border-0 flex items-center justify-center space-x-2"
+              style={{ backgroundColor: '#7c3aed' }}
+              aria-label={t('shortcuts.showHelp')}
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+              </svg>
+              <span>{t('shortcuts.showHelp')}</span>
+            </button>
           )}
 
           {/* YouTube Audio Player */}

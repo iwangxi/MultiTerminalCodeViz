@@ -13,7 +13,13 @@
     "addTenTerminals": "Add ten terminals",
     "arrangeTerminals": "Arrange terminals in grid",
     "switchTheme": "Switch theme (current: {{theme}})",
-    "removeAllCats": "Remove all cats"
+    "removeAllCats": "Remove all cats",
+    "screenshot": "Screenshot",
+    "screenshotTerminal": "Screenshot this terminal",
+    "screenshotAll": "Screenshot all terminals",
+    "screenshotCopied": "Screenshot copied to clipboard!",
+    "screenshotDownloaded": "Screenshot downloaded!",
+    "screenshotFailed": "Screenshot failed"
   },
   "terminal": {
     "title": "Terminal {{number}}",
@@ -48,6 +54,52 @@
   "common": {
     "loading": "Loading...",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts",
+    "terminal": "Terminal Operations",
+    "layout": "Layout & Arrangement",
+    "screenshot": "Screenshot",
+    "display": "Display & Theme",
+    "animation": "Animation Control",
+    "footer": "Press ? to show/hide this help",
+    "newTerminal": "Add new terminal",
+    "closeTerminal": "Close current terminal",
+    "duplicateTerminal": "Duplicate terminal",
+    "arrangeTerminals": "Arrange terminals in grid",
+    "toggleLayout": "Toggle layout mode",
+    "toggleTheme": "Switch theme",
+    "toggleControls": "Show/hide controls",
+    "screenshotAll": "Screenshot all terminals",
+    "screenshotTerminal": "Screenshot focused terminal",
+    "pauseAnimation": "Pause/resume animations",
+    "speedUp": "Increase animation speed",
+    "speedDown": "Decrease animation speed",
+    "addTerminal": "Add one terminal",
+    "removeTerminal": "Remove one terminal",
+    "addTenTerminals": "Add ten terminals",
+    "removeTenTerminals": "Remove ten terminals",
+    "toggleLanguage": "Switch language",
+    "showHelp": "Show keyboard shortcuts"
+  },
+  "customTerminal": {
+    "title": "Custom Terminal Content",
+    "edit": "Edit",
+    "preview": "Preview",
+    "editLines": "Edit Lines",
+    "addLine": "Add Line",
+    "removeLine": "Remove Line",
+    "text": "Text",
+    "color": "Color",
+    "textPlaceholder": "Enter terminal text...",
+    "linesCount": "{{count}} line",
+    "linesCount_plural": "{{count}} lines",
+    "customContent": "Custom Content",
+    "useCustomContent": "Use custom content",
+    "editCustomContent": "Edit custom content"
   }
 }

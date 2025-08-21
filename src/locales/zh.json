@@ -13,7 +13,13 @@
     "addTenTerminals": "添加十个终端",
     "arrangeTerminals": "网格排列终端",
     "switchTheme": "切换主题 (当前: {{theme}})",
-    "removeAllCats": "移除所有猫咪"
+    "removeAllCats": "移除所有猫咪",
+    "screenshot": "截图",
+    "screenshotTerminal": "截图此终端",
+    "screenshotAll": "截图所有终端",
+    "screenshotCopied": "截图已复制到剪贴板！",
+    "screenshotDownloaded": "截图已下载！",
+    "screenshotFailed": "截图失败"
   },
   "terminal": {
     "title": "终端 {{number}}",
@@ -48,6 +54,52 @@
   "common": {
     "loading": "加载中...",
     "error": "错误",
-    "success": "成功"
+    "success": "成功",
+    "close": "关闭",
+    "cancel": "取消",
+    "save": "保存"
+  },
+  "shortcuts": {
+    "title": "键盘快捷键",
+    "terminal": "终端操作",
+    "layout": "布局排列",
+    "screenshot": "截图功能",
+    "display": "显示主题",
+    "animation": "动画控制",
+    "footer": "按 ? 键显示/隐藏此帮助",
+    "newTerminal": "添加新终端",
+    "closeTerminal": "关闭当前终端",
+    "duplicateTerminal": "复制终端",
+    "arrangeTerminals": "网格排列终端",
+    "toggleLayout": "切换布局模式",
+    "toggleTheme": "切换主题",
+    "toggleControls": "显示/隐藏控制面板",
+    "screenshotAll": "截图所有终端",
+    "screenshotTerminal": "截图当前终端",
+    "pauseAnimation": "暂停/继续动画",
+    "speedUp": "加快动画速度",
+    "speedDown": "减慢动画速度",
+    "addTerminal": "添加一个终端",
+    "removeTerminal": "移除一个终端",
+    "addTenTerminals": "添加十个终端",
+    "removeTenTerminals": "移除十个终端",
+    "toggleLanguage": "切换语言",
+    "showHelp": "显示键盘快捷键"
+  },
+  "customTerminal": {
+    "title": "自定义终端内容",
+    "edit": "编辑",
+    "preview": "预览",
+    "editLines": "编辑行",
+    "addLine": "添加行",
+    "removeLine": "删除行",
+    "text": "文本",
+    "color": "颜色",
+    "textPlaceholder": "输入终端文本...",
+    "linesCount": "{{count}} 行",
+    "linesCount_plural": "{{count}} 行",
+    "customContent": "自定义内容",
+    "useCustomContent": "使用自定义内容",
+    "editCustomContent": "编辑自定义内容"
   }
 }
