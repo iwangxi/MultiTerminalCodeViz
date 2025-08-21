@@ -38,7 +38,7 @@ i18n
     fallbackLng: 'en',
     
     // 调试模式（生产环境建议关闭）
-    debug: process.env.NODE_ENV === 'development',
+    debug: import.meta.env.DEV,
 
     interpolation: {
       // React 已经默认转义了，所以不需要 i18next 转义
