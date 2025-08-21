@@ -265,7 +265,7 @@ function App() {
   return (
     <ThemeProvider>
       <AppProvider>
-        <Router>
+        <Router basename="/MultiTerminalCodeViz">
           <Routes>
             <Route path="/" element={<AppContent />} />
             <Route path="/typer" element={<AsciiTyper />} />
