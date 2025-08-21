@@ -1,0 +1,53 @@
+{
+  "controls": {
+    "title": "Terminal Controls",
+    "arrange": "Arrange",
+    "theme": "Theme",
+    "removeCats": "Remove Cats",
+    "language": "Language",
+    "hideControls": "Hide controls",
+    "showControls": "Show controls",
+    "removeTerminal": "Remove terminal",
+    "removeTenTerminals": "Remove ten terminals",
+    "addTerminal": "Add terminal",
+    "addTenTerminals": "Add ten terminals",
+    "arrangeTerminals": "Arrange terminals in grid",
+    "switchTheme": "Switch theme (current: {{theme}})",
+    "removeAllCats": "Remove all cats"
+  },
+  "terminal": {
+    "title": "Terminal {{number}}",
+    "defaultTitle": "Terminal",
+    "count": "{{count}} terminal",
+    "count_plural": "{{count}} terminals"
+  },
+  "cats": {
+    "count": "🐱 {{count}} vibe cat",
+    "count_plural": "🐱 {{count}} vibe cats"
+  },
+  "footer": {
+    "madeWith": "Made with ❤️ by",
+    "code": "Code",
+    "vibeTyper": "vibe typer"
+  },
+  "asciiTyper": {
+    "title": "ASCII Art Text Generator",
+    "textInput": "Enter your text",
+    "addLine": "Add Line",
+    "removeLine": "Remove Line",
+    "backgroundColor": "Background Color",
+    "textColor": "Text Color",
+    "useGradient": "Use Gradient",
+    "gradientStart": "Gradient Start",
+    "gradientEnd": "Gradient End",
+    "preview": "Preview",
+    "download": "Download as Image",
+    "backToTerminals": "Back to Terminals",
+    "presetColors": "Preset Colors"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  }
+}

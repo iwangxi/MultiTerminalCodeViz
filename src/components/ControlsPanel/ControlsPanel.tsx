@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { SimpleYouTubePlayer } from '../YouTubeAudioPlayer/SimpleYouTubePlayer';
+import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher';
 
 interface ControlsPanelProps {
   terminalCount: number;
@@ -12,17 +14,18 @@ interface ControlsPanelProps {
   onRemoveAllCats?: () => void;
 }
 
-export function ControlsPanel({ 
-  terminalCount, 
+export function ControlsPanel({
+  terminalCount,
   onTerminalCountChange,
   onArrangeTerminals,
-  minTerminals = 1, 
+  minTerminals = 1,
   maxTerminals = 10000,
   catCount = 0,
   onRemoveAllCats
 }: ControlsPanelProps) {
   const [isVisible, setIsVisible] = useState(true);
   const { themeName, setTheme, getThemeNames } = useTheme();
+  const { t } = useTranslation();
 
   // YouTube videos for the audio player
   const youtubeVideos = [
@@ -87,12 +90,12 @@ export function ControlsPanel({
         <div className="p-4 space-y-3">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <h3 className="text-white font-medium text-sm">Terminal Controls</h3>
+            <h3 className="text-white font-medium text-sm">{t('controls.title')}</h3>
             <button
               onClick={toggleVisibility}
               className="text-gray-400 hover:text-white transition-colors border-0 p-1 bg-transparent"
               style={{ backgroundColor: 'transparent' }}
-              aria-label="Hide controls"
+              aria-label={t('controls.hideControls')}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -107,7 +110,7 @@ export function ControlsPanel({
               disabled={terminalCount <= minTerminals}
               className="w-8 h-8 bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded font-bold transition-colors border-0 p-0"
               style={{ backgroundColor: terminalCount <= minTerminals ? '#4b5563' : '#dc2626' }}
-              aria-label="Remove ten terminals"
+              aria-label={t('controls.removeTenTerminals')}
             >
               -10
             </button>
@@ -117,13 +120,13 @@ export function ControlsPanel({
               disabled={terminalCount <= minTerminals}
               className="w-8 h-8 bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded font-bold transition-colors border-0 p-0"
               style={{ backgroundColor: terminalCount <= minTerminals ? '#4b5563' : '#dc2626' }}
-              aria-label="Remove terminal"
+              aria-label={t('controls.removeTerminal')}
             >
               -
             </button>
 
             <span className="text-white font-mono text-sm min-w-[3rem] text-center">
-              {terminalCount} terminal{terminalCount !== 1 ? 's' : ''}
+              {t('terminal.count', { count: terminalCount })}
             </span>
 
             <button
@@ -131,7 +134,7 @@ export function ControlsPanel({
               disabled={terminalCount >= maxTerminals}
               className="w-8 h-8 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded font-bold transition-colors border-0 p-0"
               style={{ backgroundColor: terminalCount >= maxTerminals ? '#4b5563' : '#059669' }}
-              aria-label="Add terminal"
+              aria-label={t('controls.addTerminal')}
             >
               +
             </button>
@@ -141,7 +144,7 @@ export function ControlsPanel({
               disabled={terminalCount >= maxTerminals}
               className="w-8 h-8 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded font-bold transition-colors border-0 p-0"
               style={{ backgroundColor: terminalCount >= maxTerminals ? '#4b5563' : '#059669' }}
-              aria-label="Add ten terminals"
+              aria-label={t('controls.addTenTerminals')}
             >
               +10
             </button>
@@ -153,9 +156,9 @@ export function ControlsPanel({
               onClick={onArrangeTerminals}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded py-2 px-3 text-sm font-medium transition-colors border-0"
               style={{ backgroundColor: '#2563eb' }}
-              aria-label="Arrange terminals in grid"
+              aria-label={t('controls.arrangeTerminals')}
             >
-              Arrange
+              {t('controls.arrange')}
             </button>
           )}
 
@@ -164,26 +167,29 @@ export function ControlsPanel({
             onClick={handleThemeToggle}
             className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded py-2 px-3 text-sm font-medium transition-colors border-0"
             style={{ backgroundColor: '#7c3aed' }}
-            aria-label={`Switch theme (current: ${themeName})`}
+            aria-label={t('controls.switchTheme', { theme: themeName })}
           >
-            Theme: {themeName}
+            {t('controls.theme')}: {themeName}
           </button>
+
+          {/* Language Switcher */}
+          <LanguageSwitcher />
 
           {/* Cat Controls (only show if cats exist) */}
           {catCount > 0 && onRemoveAllCats && (
             <div className="space-y-2">
               <div className="text-center">
                 <span className="text-white font-mono text-xs">
-                  🐱 {catCount} vibe cat{catCount !== 1 ? 's' : ''}
+                  {t('cats.count', { count: catCount })}
                 </span>
               </div>
               <button
                 onClick={onRemoveAllCats}
                 className="w-full bg-orange-600 hover:bg-orange-700 text-white rounded py-2 px-3 text-sm font-medium transition-colors border-0"
                 style={{ backgroundColor: '#ea580c' }}
-                aria-label="Remove all cats"
+                aria-label={t('controls.removeAllCats')}
               >
-                Remove Cats
+                {t('controls.removeCats')}
               </button>
             </div>
           )}
@@ -196,10 +202,10 @@ export function ControlsPanel({
           {/* Footer */}
           <div className="pt-3 border-t border-gray-600 text-center">
             <p className="text-gray-400 text-xs">
-              Made with ❤️ by{' '}
-              <a 
-                href="https://x.com/gregkamradt" 
-                target="_blank" 
+              {t('footer.madeWith')}{' '}
+              <a
+                href="https://x.com/gregkamradt"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:text-blue-300 transition-colors underline"
               >
@@ -212,14 +218,14 @@ export function ControlsPanel({
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:text-blue-300 transition-colors underline"
               >
-                Code
+                {t('footer.code')}
               </a>
               {' '} • {' '}
               <a
                 href="/typer"
                 className="text-green-400 hover:text-green-300 transition-colors underline"
               >
-                vibe typer
+                {t('footer.vibeTyper')}
               </a>
             </p>
           </div>
@@ -232,7 +238,7 @@ export function ControlsPanel({
           onClick={toggleVisibility}
           className="fixed top-4 left-4 w-10 h-10 bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg shadow-lg text-white transition-colors flex items-center justify-center p-0"
           style={{ backgroundColor: '#1f2937', zIndex: 10001 }}
-          aria-label="Show controls"
+          aria-label={t('controls.showControls')}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

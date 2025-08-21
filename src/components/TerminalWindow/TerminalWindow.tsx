@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import Draggable from 'react-draggable';
 import { ResizableBox } from 'react-resizable';
 import './TerminalWindow.css';
@@ -26,15 +27,19 @@ export function TerminalWindow({
   id,
   initialPosition = { x: 0, y: 0 },
   initialSize = {},
-  title = 'Terminal',
+  title,
   onClose,
   onPositionChange,
   zIndex = 10,
   onFocus,
   totalTerminalCount = 1
 }: TerminalWindowProps) {
+  const { t } = useTranslation();
   const { currentTheme, getColorForRole } = useTheme();
   const nodeRef = useRef<HTMLDivElement>(null);
+
+  // 使用国际化的默认标题
+  const displayTitle = title || t('terminal.defaultTitle');
 
   const [size, setSize] = useState({
     width: initialSize.width ?? DEFAULT_WIDTH,
@@ -132,7 +137,7 @@ export function TerminalWindow({
               </div>
               {/* Title */}
               <div className="mx-auto pr-16">
-                <p className="text-center text-sm">{title}</p>
+                <p className="text-center text-sm">{displayTitle}</p>
               </div>
             </div>
 

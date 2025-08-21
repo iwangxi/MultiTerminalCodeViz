@@ -1,0 +1,53 @@
+{
+  "controls": {
+    "title": "终端控制",
+    "arrange": "整理排列",
+    "theme": "主题",
+    "removeCats": "移除猫咪",
+    "language": "语言",
+    "hideControls": "隐藏控制面板",
+    "showControls": "显示控制面板",
+    "removeTerminal": "移除终端",
+    "removeTenTerminals": "移除十个终端",
+    "addTerminal": "添加终端",
+    "addTenTerminals": "添加十个终端",
+    "arrangeTerminals": "网格排列终端",
+    "switchTheme": "切换主题 (当前: {{theme}})",
+    "removeAllCats": "移除所有猫咪"
+  },
+  "terminal": {
+    "title": "终端 {{number}}",
+    "defaultTitle": "终端",
+    "count": "{{count}} 个终端",
+    "count_plural": "{{count}} 个终端"
+  },
+  "cats": {
+    "count": "🐱 {{count}} 只氛围猫",
+    "count_plural": "🐱 {{count}} 只氛围猫"
+  },
+  "footer": {
+    "madeWith": "用 ❤️ 制作，作者",
+    "code": "代码",
+    "vibeTyper": "氛围打字机"
+  },
+  "asciiTyper": {
+    "title": "ASCII 艺术文字生成器",
+    "textInput": "输入您的文字",
+    "addLine": "添加行",
+    "removeLine": "删除行",
+    "backgroundColor": "背景颜色",
+    "textColor": "文字颜色",
+    "useGradient": "使用渐变",
+    "gradientStart": "渐变起始",
+    "gradientEnd": "渐变结束",
+    "preview": "预览",
+    "download": "下载为图片",
+    "backToTerminals": "返回终端",
+    "presetColors": "预设颜色"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功"
+  }
+}

@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { AppProvider } from './contexts/AppContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { TerminalWindow } from './components/TerminalWindow/TerminalWindow';
@@ -16,6 +17,8 @@ interface Terminal {
 }
 
 function AppContent() {
+  const { t } = useTranslation();
+
   // Generate random position for a new terminal within safe bounds
   const generateRandomPosition = () => {
     const padding = 100; // Extra padding to avoid edge cases
@@ -235,7 +238,7 @@ function AppContent() {
           <TerminalWindow
             key={terminal.id}
             id={terminal.id}
-            title={`Terminal ${index + 1}`}
+            title={t('terminal.title', { number: index + 1 })}
             initialPosition={terminal.position}
             zIndex={terminal.zIndex}
             onFocus={handleFocus}

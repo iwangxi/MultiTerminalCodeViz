@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { generateAsciiArt } from '../utils/asciiArt';
 
 interface TextLine {
@@ -22,6 +23,7 @@ const PRESET_COLORS = [
 ];
 
 export function AsciiTyper() {
+  const { t } = useTranslation();
   const [lines, setLines] = useState<TextLine[]>([
     { id: '1', text: 'Gradient Text' }
   ]);
@@ -125,7 +127,7 @@ export function AsciiTyper() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2" style={{ color: textColor }}>
-            ASCII Art Typer
+            {t('asciiTyper.title')}
           </h1>
           <p className="text-lg opacity-80" style={{ color: textColor }}>
             Type text and see it converted to ASCII art in real-time
